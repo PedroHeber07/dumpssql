@@ -1,0 +1,55 @@
+create database castelo_branco
+default charater set utf8
+default collate utf8_general_ci;
+
+create table aluno(
+matricula int not null AUTO_INCREMENT,
+nome varchar(30),
+data_nasc date, 
+cr float,
+primary key(matricula)
+)ENGINE=INNODB;
+
+create table curso (
+codigo_curso int not null AUTO_INCREMENT,
+nome varchar(30),
+primary key(codigo_curso)
+)ENGINE=INNODB;
+
+create table disciplina(
+id_disc int not null AUTO_INCREMENT,
+nome varchar(30),
+creditos int,
+primary key (id_disc)
+
+fk_curso int,
+foreign key (fk_curso)
+references curso(codigo_curso) 
+)ENGINE=INNODB;
+
+create table turma(
+codigo_turma int not null AUTO_INCREMENT,
+nome varchar(30),
+ano int(4),
+qtdalunos int,
+primary key(codigo_turma),
+
+fk_disc int,
+foreign key(fk_disc)
+references disciplina(id_disc)
+)ENGINE=INNODB;
+
+create table Turma_aluno(
+id int not null AUTO_INCREMENT,
+sala int,
+bloco varchar(5),
+primary key (id),
+
+fk_aluno int,
+foreign key (fk_aluno)
+references aluno(matricula),
+
+fk_turma int,
+foreign key (fk_turma)
+references turma(codigo_turma)
+)ENGINE=INNODB;
